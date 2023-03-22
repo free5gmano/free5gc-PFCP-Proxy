@@ -81,13 +81,13 @@ def main():
     t = Thread(target=pfcp_proxy, args=(host, upfs))
     t.start()
     print("pfcp proxy start.")
-    print("mqtt start.")
+    
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-    client.username_pw_set("try","xxxx")
     client.connect("10.0.0.218", 1883, 60)
     client.loop_forever()
+    print("mqtt start.")
 
 
 

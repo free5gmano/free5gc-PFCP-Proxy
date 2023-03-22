@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 import json
 import time
 from kubernetes import client, config, utils
+import paho.mqtt.publish as publish
 
 config.load_kube_config()
 v1 = client.CoreV1Api()
@@ -9,13 +10,14 @@ k8s_client = client.ApiClient()
 k8s_api = client.ExtensionsV1beta1Api(k8s_client)
 
 client = mqtt.Client()
-client.username_pw_set("try","xxxx")
-client.connect("10.0.0.218", 1883, 60)
+# client.connect("10.0.0.218", 1883, 60)
+BORKER_IP = "10.0.0.218"
 
 def send_upf_err_msg():
     payload = {'upf_status' : "upf_err_ip:10.20.1.58"}
     print (json.dumps(payload))
-    client.publish("upf/status", json.dumps(payload))
+    # client.publish("upf/status", json.dumps(payload))
+    publish.single("upf/status", json.dumps(payload), hostname=BORKER_IP)
     print("send err msg done.")
 
 def restart_upf():
