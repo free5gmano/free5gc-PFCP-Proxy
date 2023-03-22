@@ -16,6 +16,7 @@ def send_upf_err_msg():
     payload = {'upf_status' : "upf_err_ip:10.20.1.58"}
     print (json.dumps(payload))
     client.publish("upf/status", json.dumps(payload))
+    print("send err msg done.")
 
 def restart_upf():
     utils.create_from_yaml(k8s_client, "/home/ubuntu/3.2.1cni_nodeport_up/02-free5gc-upf.yaml")
@@ -26,10 +27,13 @@ while True:
     if len(ret.items) == 0:
         # send_upf_err_msg()
         restart_upf()
+        print("restart upf done")
         send_upf_err_msg()
     else:
         for i in ret.items:
             if i.metadata.name.find("free5gc-upf") != -1:
                 if i.status.phase != "Running":
-                    send_upf_err_msg()
                     restart_upf()
+                    print("restart upf done")
+                    send_upf_err_msg()
+                    
