@@ -28,6 +28,8 @@ def pfcp_proxy(host, upfs):
 
     smf = None
     upf_address = ip_to_tuple(upfs)
+
+    global PFCP_RESENDING
     
     while True:
         data, address = proxy_socket.recvfrom(BUFFER_SIZE)

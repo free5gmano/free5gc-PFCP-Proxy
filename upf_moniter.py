@@ -18,7 +18,7 @@ def send_upf_err_msg():
     client.publish("upf/status", json.dumps(payload))
 
 def restart_upf():
-    utils.create_from_yaml(k8s_client, "/home/ubuntu/3.2.1cni_nodeport/02-free5gc-upf.yaml")
+    utils.create_from_yaml(k8s_client, "/home/ubuntu/3.2.1cni_nodeport_up/02-free5gc-upf.yaml")
 
 while True:
     time.sleep(10)
