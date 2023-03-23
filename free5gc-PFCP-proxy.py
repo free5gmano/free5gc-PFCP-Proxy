@@ -4,6 +4,7 @@ from threading import Thread
 import paho.mqtt.client as mqtt
 from kubernetes import client, config, utils
 from scapy.contrib.pfcp import *
+import time
 
 
 
@@ -94,12 +95,15 @@ def pfcp_proxy(host, upfs):
 def resend_pfcp():
     print("[PFCP Proxy] [info] Resend PFCP Association Setup Request")
     PFCP_ASSOCIATION_RESENDING = True
+    time.sleep(7)
     proxy_socket.sendto(PFCP_ASSOCIATION_DATA, (UPF_IP, 8805))
     print("[PFCP Proxy] [info] Resend PFCP Session Establishment Request")
     PFCP_SESSION_ESTABLISHMENT_RESENDING = True
+    time.sleep(7)
     proxy_socket.sendto(PFCP_SESSION_ESTABLISHMENT_DATA, (UPF_IP, 8805))
     print("[PFCP Proxy] [info] Resend PFCP Session Modification Request")
     PFCP_SESSION_MODIFICATION_RESENDING = True
+    time.sleep(7)
     proxy_socket.sendto(PFCP_SESSION_MODIFICATION_DATA, (UPF_IP, 8805))
     # print("resend pfcp done")
     
