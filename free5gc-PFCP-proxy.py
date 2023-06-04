@@ -5,8 +5,7 @@ import paho.mqtt.client as mqtt
 from kubernetes import client, config, utils
 from scapy.contrib.pfcp import *
 import time
-
-
+import paho.mqtt.publish as publish
 
 
 FORMAT = '%(asctime)-15s %(levelname)-10s %(message)s'
@@ -68,6 +67,9 @@ def pfcp_proxy(host, upfs):
                 PFCP_ASSOCIATION_RESENDING = False
 
         elif str(PFCP(data)[0]) == "PFCP / PFCPSessionEstablishmentRequest" or str(PFCP(data)[0]) == "PFCP / PFCPSessionEstablishmentResponse":
+            if(str(PFCP(data)[0]) == "PFCP / PFCPSessionEstablishmentRequest"):
+                print("UE connected")
+                publish.single("free5gc/UE", "UE connected" , qos=0, hostname="10.0.0.218")
             if address == smf:
                 data = LOCAL_DATA_HANDLER(data)
                 PFCP_SESSION_ESTABLISHMENT_DATA = data
