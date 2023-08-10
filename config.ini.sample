@@ -1,0 +1,20 @@
+[upf]
+numbers = 3 
+# depends on the numbers of upf you want to connect
+ip = ["127.0.0.1:8805","127.0.0.2:8805","127.0.0.3:8805"]
+[gtpu]
+# host ip 
+proxy_host = 127.0.0.4
+port = 2152
+[pfcp]
+proxy_host = 127.0.0.4 
+; only needed when free5gc upf config using fqdn
+proxy_host_fqdn = free5gc-n4i-svc1 
+port = 8805
+[mqtt]
+# mqtt broker ip 
+broker_ip = 10.0.0.1
+port = 1883
+[ue]
+; not the ip for tunning interface  
+host_address = 10.0.0.2 
