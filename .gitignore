@@ -1,0 +1,6 @@
+
+free5gc-PFCP-proxy.backup
+test.py
+config.ini
+
+__pycache__/*.pyc
